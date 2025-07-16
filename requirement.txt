@@ -9,9 +9,7 @@ click==8.2.1
 cookiecutter==2.6.0
 fastapi==0.116.1
 flet==0.28.3
-flet-cli==0.28.3
-flet-desktop-light==0.28.3
-flet-web==0.28.3
+flet-desktop==0.28.3
 h11==0.16.0
 httpcore==1.0.9
 httptools==0.6.4
