@@ -486,27 +486,27 @@ class SnapTubeApp:
             tabs=[
                 ft.Tab(
                     text="Add Download",
-                    icon=ft.icons.DOWNLOAD,
+                    icon=ft.Icons.DOWNLOAD,
                     content=self.create_add_download_tab()
                 ),
                 ft.Tab(
                     text="Downloading",
-                    icon=ft.icons.DOWNLOADING,
+                    icon=ft.Icons.DOWNLOADING,
                     content=self.create_downloading_tab()
                 ),
                 ft.Tab(
                     text="Downloaded",
-                    icon=ft.icons.DOWNLOAD_DONE,
+                    icon=ft.Icons.DOWNLOAD_DONE,
                     content=self.create_downloaded_tab()
                 ),
                 ft.Tab(
                     text="History",
-                    icon=ft.icons.HISTORY,
+                    icon=ft.Icons.HISTORY,
                     content=self.create_history_tab()
                 ),
                 ft.Tab(
                     text="Settings",
-                    icon=ft.icons.SETTINGS,
+                    icon=ft.Icons.SETTINGS,
                     content=self.create_settings_tab()
                 )
             ]
@@ -524,7 +524,7 @@ class SnapTubeApp:
         
         self.analyze_button = ft.ElevatedButton(
             text="Analyze",
-            icon=ft.icons.SEARCH,
+            icon=ft.Icons.SEARCH,
             on_click=self.analyze_url,
             disabled=True
         )
@@ -545,12 +545,12 @@ class SnapTubeApp:
         
         self.download_button = ft.ElevatedButton(
             text="Download",
-            icon=ft.icons.DOWNLOAD,
+            icon=ft.Icons.DOWNLOAD,
             on_click=self.start_download,
             visible=False,
             style=ft.ButtonStyle(
-                bgcolor=ft.colors.BLUE,
-                color=ft.colors.WHITE
+                bgcolor=ft.Colors.BLUE,
+                color=ft.Colors.WHITE
             )
         )
         
@@ -583,9 +583,10 @@ class SnapTubeApp:
             content=ft.Column([
                 ft.Row([
                     ft.Text("Active Downloads", size=24, weight=ft.FontWeight.BOLD),
-                    ft.Spacer(),
+                    # ft.Spacer(),
+                    ft.Container(expand=True),
                     ft.IconButton(
-                        icon=ft.icons.REFRESH,
+                        icon=ft.Icons.REFRESH,
                         on_click=self.refresh_downloading_list
                     )
                 ]),
@@ -606,9 +607,10 @@ class SnapTubeApp:
             content=ft.Column([
                 ft.Row([
                     ft.Text("Downloaded Files", size=24, weight=ft.FontWeight.BOLD),
-                    ft.Spacer(),
+                    # ft.Spacer()
+                    ft.Container(expand=True),
                     ft.IconButton(
-                        icon=ft.icons.REFRESH,
+                        icon=ft.Icons.REFRESH,
                         on_click=self.refresh_downloaded_list
                     )
                 ]),
@@ -620,7 +622,7 @@ class SnapTubeApp:
     def create_history_tab(self):
         self.history_search = ft.TextField(
             label="Search history",
-            prefix_icon=ft.icons.SEARCH,
+            prefix_icon=ft.Icons.SEARCH,
             width=300,
             on_change=self.filter_history
         )
@@ -636,10 +638,10 @@ class SnapTubeApp:
             content=ft.Column([
                 ft.Row([
                     ft.Text("Download History", size=24, weight=ft.FontWeight.BOLD),
-                    ft.Spacer(),
+                    ft.Container(expand=True),
                     self.history_search,
                     ft.IconButton(
-                        icon=ft.icons.REFRESH,
+                        icon=ft.Icons.REFRESH,
                         on_click=self.refresh_history_list
                     )
                 ]),
@@ -658,7 +660,7 @@ class SnapTubeApp:
         
         self.browse_button = ft.ElevatedButton(
             text="Browse",
-            icon=ft.icons.FOLDER_OPEN,
+            icon=ft.Icons.FOLDER_OPEN,
             on_click=self.browse_download_path
         )
         
@@ -708,11 +710,11 @@ class SnapTubeApp:
         
         self.save_settings_button = ft.ElevatedButton(
             text="Save Settings",
-            icon=ft.icons.SAVE,
+            icon=ft.Icons.SAVE,
             on_click=self.save_settings,
             style=ft.ButtonStyle(
-                bgcolor=ft.colors.GREEN,
-                color=ft.colors.WHITE
+                bgcolor=ft.Colors.GREEN,
+                color=ft.Colors.WHITE
             )
         )
         
@@ -795,7 +797,7 @@ class SnapTubeApp:
         # Create info display
         info_content = ft.Column([
             ft.Row([
-                ft.Icon(ft.icons.PLAY_CIRCLE_OUTLINE, size=40),
+                ft.Icon(ft.Icons.PLAY_CIRCLE_OUTLINE, size=40),
                 ft.Column([
                     ft.Text(title, size=18, weight=ft.FontWeight.BOLD),
                     ft.Text(f"By: {uploader}", size=14),
@@ -992,15 +994,15 @@ class SnapTubeApp:
         """Create a download item widget"""
         # Status color
         status_colors = {
-            'pending': ft.colors.ORANGE,
-            'downloading': ft.colors.BLUE,
-            'completed': ft.colors.GREEN,
-            'failed': ft.colors.RED,
-            'paused': ft.colors.AMBER,
-            'cancelled': ft.colors.GREY
+            'pending': ft.Colors.ORANGE,
+            'downloading': ft.Colors.BLUE,
+            'completed': ft.Colors.GREEN,
+            'failed': ft.Colors.RED,
+            'paused': ft.Colors.AMBER,
+            'cancelled': ft.Colors.GREY
         }
         
-        status_color = status_colors.get(download.status, ft.colors.GREY)
+        status_color = status_colors.get(download.status, ft.Colors.GREY)
         
         # Progress bar
         progress_bar = ft.ProgressBar(
@@ -1023,12 +1025,12 @@ class SnapTubeApp:
             if download.status == 'downloading':
                 action_buttons.extend([
                     ft.IconButton(
-                        icon=ft.icons.PAUSE,
+                        icon=ft.Icons.PAUSE,
                         tooltip="Pause",
                         on_click=lambda e, did=download.id: self.pause_download(did)
                     ),
                     ft.IconButton(
-                        icon=ft.icons.STOP,
+                        icon=ft.Icons.STOP,
                         tooltip="Cancel",
                         on_click=lambda e, did=download.id: self.cancel_download(did)
                     )
@@ -1036,12 +1038,12 @@ class SnapTubeApp:
             elif download.status == 'paused':
                 action_buttons.extend([
                     ft.IconButton(
-                        icon=ft.icons.PLAY_ARROW,
+                        icon=ft.Icons.PLAY_ARROW,
                         tooltip="Resume",
                         on_click=lambda e, did=download.id: self.resume_download(did)
                     ),
                     ft.IconButton(
-                        icon=ft.icons.STOP,
+                        icon=ft.Icons.STOP,
                         tooltip="Cancel",
                         on_click=lambda e, did=download.id: self.cancel_download(did)
                     )
@@ -1049,7 +1051,7 @@ class SnapTubeApp:
             elif download.status == 'failed':
                 action_buttons.append(
                     ft.IconButton(
-                        icon=ft.icons.REFRESH,
+                        icon=ft.Icons.REFRESH,
                         tooltip="Retry",
                         on_click=lambda e, did=download.id: self.retry_download(did)
                     )
@@ -1058,12 +1060,12 @@ class SnapTubeApp:
         if download.status == 'completed':
             action_buttons.extend([
                 ft.IconButton(
-                    icon=ft.icons.PLAY_ARROW,
+                    icon=ft.Icons.PLAY_ARROW,
                     tooltip="Open File",
                     on_click=lambda e, path=download.file_path: self.open_file(path)
                 ),
                 ft.IconButton(
-                    icon=ft.icons.FOLDER_OPEN,
+                    icon=ft.Icons.FOLDER_OPEN,
                     tooltip="Open Folder",
                     on_click=lambda e, path=download.file_path: self.open_folder(path)
                 )
@@ -1072,12 +1074,12 @@ class SnapTubeApp:
         if show_history:
             action_buttons.extend([
                 ft.IconButton(
-                    icon=ft.icons.DOWNLOAD,
+                    icon=ft.Icons.DOWNLOAD,
                     tooltip="Download Again",
                     on_click=lambda e, url=download.url: self.download_again(url)
                 ),
                 ft.IconButton(
-                    icon=ft.icons.DELETE,
+                    icon=ft.Icons.DELETE,
                     tooltip="Delete from History",
                     on_click=lambda e, did=download.id: self.delete_from_history(did)
                 )
@@ -1088,7 +1090,7 @@ class SnapTubeApp:
                 padding=15,
                 content=ft.Column([
                     ft.Row([
-                        ft.Icon(ft.icons.PLAY_CIRCLE_OUTLINE, size=40),
+                        ft.Icon(ft.Icons.PLAY_CIRCLE_OUTLINE, size=40),
                         ft.Column([
                             ft.Text(download.title, size=16, weight=ft.FontWeight.BOLD),
                             ft.Text(f"{download.platform} • {download.quality}", size=12),
@@ -1235,7 +1237,7 @@ class SnapTubeApp:
         """Show error message"""
         self.page.snack_bar = ft.SnackBar(
             content=ft.Text(message),
-            bgcolor=ft.colors.RED,
+            bgcolor=ft.Colors.RED,
             action="OK"
         )
         self.page.snack_bar.open = True
